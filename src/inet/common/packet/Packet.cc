@@ -119,6 +119,8 @@ std::shared_ptr<Chunk> Packet::peekAt(int64_t byteOffset, int64_t byteLength) co
 
 void Packet::prepend(const std::shared_ptr<Chunk>& chunk, bool flatten)
 {
+    if (getHeaderLength() != 0)
+        throw cRuntimeError("Packet has some processed header");
     if (data == nullptr) {
         if (chunk->getChunkType() == Chunk::TYPE_SLICE) {
             auto sequenceChunk = std::make_shared<SequenceChunk>();
@@ -149,6 +151,8 @@ void Packet::prepend(Packet *packet, bool flatten)
 
 void Packet::append(const std::shared_ptr<Chunk>& chunk, bool flatten)
 {
+    if (getTrailerLength() != 0)
+        throw cRuntimeError("Packet has some processed trailer");
     if (data == nullptr) {
         if (chunk->getChunkType() == Chunk::TYPE_SLICE) {
             auto sequenceChunk = std::make_shared<SequenceChunk>();
