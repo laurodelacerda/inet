@@ -54,7 +54,7 @@ class PppHeader extends Chunk
 
 class PppTrailer extends Chunk
 {
-    int64_t byteLength = 3;
+    int64_t byteLength = 2; //FIXME correct value is 3
     short fcs = 0;      // frame check sequence, 2 byte
     short flag = 0x7e;  // 1 byte, omitted for successive PPP packets
 }
