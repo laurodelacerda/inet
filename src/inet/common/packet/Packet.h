@@ -188,7 +188,7 @@ class Packet : public cPacket
      * Returns the current data size measured in bytes. The returned value is
      * in the range [0, getByteLength()].
      */
-    int64_t getDataLength() const { return getByteLength() - headerIterator.getPosition() - trailerIterator.getPosition(); }
+    int64_t getDataLength() const { return getTotalLength() - headerIterator.getPosition() - trailerIterator.getPosition(); }
 
     std::shared_ptr<Chunk> peekData(int64_t byteLength = -1) const;
 
@@ -247,7 +247,8 @@ class Packet : public cPacket
     void removeFromEnd(int64_t byteLength);
     //@}
 
-    virtual int64_t getBitLength() const override { return data->getByteLength() << 3; }        //TODO REVIEW: returns total length, or returns length between header/trailer iterators only? in second case: need a getTotalLength() function
+    virtual int64_t getBitLength() const override { return getDataLength() << 3; }        //TODO REVIEW: returns total length, or returns length between header/trailer iterators only? in second case: need a getTotalLength() function
+    virtual int64_t getTotalLength() const { return data->getByteLength(); }        //TODO REVIEW: returns total length, or returns length between header/trailer iterators only? in second case: need a getTotalLength() function
 
     virtual std::string str() const override { return data->str(); }
 };
