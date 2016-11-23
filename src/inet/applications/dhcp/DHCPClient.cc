@@ -450,7 +450,7 @@ void DHCPClient::handleDHCPMessage(DHCPMessage *msg)
             }
             else if (messageType == DHCPNAK) {
                 EV_INFO << "DHPCNAK message arrived in RENEWING state. The renewing process was unsuccessful. Restarting the DHCP configuration process." << endl;
-                unbindLease();    // halt network (remove address)
+                unbindLease();
                 initClient();
             }
             else {
@@ -461,7 +461,7 @@ void DHCPClient::handleDHCPMessage(DHCPMessage *msg)
         case REBINDING:
             if (messageType == DHCPNAK) {
                 EV_INFO << "DHPCNAK message arrived in REBINDING state. The rebinding process was unsuccessful. Restarting the DHCP configuration process." << endl;
-                unbindLease();    // halt network (remove address)
+                unbindLease();
                 initClient();
             }
             else if (messageType == DHCPACK) {
@@ -482,7 +482,7 @@ void DHCPClient::handleDHCPMessage(DHCPMessage *msg)
             }
             else if (messageType == DHCPNAK) {
                 EV_INFO << "DHCPNAK message arrived in REBOOTING. Initialization with known IP address was unsuccessful." << endl;
-                unbindLease();    // halt network (remove address)
+                unbindLease();
                 initClient();
             }
             else {
