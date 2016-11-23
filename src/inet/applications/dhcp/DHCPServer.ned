@@ -33,7 +33,7 @@ simple DHCPServer like IUDPApp
     parameters:
         string interfaceTableModule;   // The path to the InterfaceTable module
         string interface = default(""); // interface to listen on; can be left empty if there is only one non-loopback interface
-        int numReservedAddresses; // number of addreses 
+        int numReservedAddresses; // number of addresses to skip at the start of the network's address range
         int maxNumClients; // maximum number of clients (IPs) allowed to be leased
         string gateway = default(""); // gateway to assign, if empty use the interface address
         int leaseTime @unit(s); // lease time in seconds
